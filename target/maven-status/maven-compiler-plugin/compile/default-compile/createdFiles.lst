@@ -1,0 +1,15 @@
+br/com/rrp/resources/exceptions/NaoAutorizadoException.class
+br/com/rrp/config/WebSecurityConfig.class
+br/com/rrp/resources/TarefasResources.class
+br/com/rrp/resources/exceptions/ParametroInvalidoException.class
+br/com/rrp/model/Tarefa.class
+br/com/rrp/RRPApiApplication.class
+br/com/rrp/java/Data.class
+br/com/rrp/model/SituacaoTarefa.class
+br/com/rrp/resources/exceptions/RecursoNaoEncontradoException.class
+br/com/rrp/resources/exceptions/NegocioException.class
+br/com/rrp/repository/TarefasRepository.class
+br/com/rrp/java/Utils.class
+br/com/rrp/resources/exceptions/DetalhesErro.class
+br/com/rrp/resources/exceptions/ErroInternoServidorException.class
+br/com/rrp/service/TarefaService.class
