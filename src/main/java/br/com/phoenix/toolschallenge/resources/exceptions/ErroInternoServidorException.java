@@ -1,4 +1,4 @@
-package br.com.rrp.resources.exceptions;
+package br.com.phoenix.toolschallenge.resources.exceptions;
 
 public class ErroInternoServidorException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

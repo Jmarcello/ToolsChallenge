@@ -1,8 +1,6 @@
-package br.com.rrp.service;
+package br.com.phoenix.toolschallenge.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -10,13 +8,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.rrp.java.Data;
-import br.com.rrp.java.Utils;
-import br.com.rrp.model.SituacaoTarefa;
-import br.com.rrp.model.Tarefa;
-import br.com.rrp.repository.TarefasRepository;
-import br.com.rrp.resources.exceptions.ParametroInvalidoException;
-import br.com.rrp.resources.exceptions.RecursoNaoEncontradoException;
+import br.com.phoenix.toolschallenge.java.ValidacaoUtils;
+import br.com.phoenix.toolschallenge.model.SituacaoTarefa;
+import br.com.phoenix.toolschallenge.model.Tarefa;
+import br.com.phoenix.toolschallenge.repository.TarefasRepository;
+import br.com.phoenix.toolschallenge.resources.exceptions.ParametroInvalidoException;
+import br.com.phoenix.toolschallenge.resources.exceptions.RecursoNaoEncontradoException;
 
 @Service
 public class TarefaService {
@@ -29,13 +26,12 @@ public class TarefaService {
 		return tarefasRepository.findAll();
 	}
 
-	public Optional<Tarefa> buscarId(Long id) {
+	public Optional<Tarefa> buscarId(String id) {
 
-		if (id == null) {
-			throw new ParametroInvalidoException("ID não informado.");
-		}
+		ValidacaoUtils.validarNaoVazio(id, "ID não informado.");
+		ValidacaoUtils.validarNumerico(id, "Id informado inválido");
 
-		Optional<Tarefa> tarefa = tarefasRepository.findById(id);
+		Optional<Tarefa> tarefa = tarefasRepository.findById(Long.parseLong(id));
 
 		return tarefa;
 	}
@@ -90,45 +86,45 @@ public class TarefaService {
 			throw new ParametroInvalidoException("A data terefa deve ser informada.");
 		}
 
-		if (Data.isValida(tarefa.getDataMaxima(), "dd/MM/yyyy")) {
+//		if (Data.isValida(tarefa.getDataMaxima(), "dd/MM/yyyy")) {
+//
+//			tarefa.setDataMaxima(tarefa.getDataMaxima() + " 00:00:00");
+//
+//		} else if (Data.isValida(tarefa.getDataMaxima(), "dd/MM/yyyy HH:mm")) {
+//			tarefa.setDataMaxima(tarefa.getDataMaxima() + ":00");
+//		} else {
+//			throw new ParametroInvalidoException(
+//					"A data terefa deve ser informada com formato dd/MM/yyyy ou dd/MM/yyyy HH:mm ");
+//		}
 
-			tarefa.setDataMaxima(tarefa.getDataMaxima() + " 00:00:00");
+//		Date dataMx = Data.strToDate(tarefa.getDataMaxima(), "dd/MM/yyyy");
+//
+//		if (dataMx.before(new Date())) {
+//			tarefa.setVencida(true);
+//		}
+//
+//		if (tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CONCLUIDA)) {
+//			tarefa.setCumprida(true);
+//		}
 
-		} else if (Data.isValida(tarefa.getDataMaxima(), "dd/MM/yyyy HH:mm")) {
-			tarefa.setDataMaxima(tarefa.getDataMaxima() + ":00");
-		} else {
-			throw new ParametroInvalidoException(
-					"A data terefa deve ser informada com formato dd/MM/yyyy ou dd/MM/yyyy HH:mm ");
-		}
+//		if (!tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CONCLUIDA)
+//				&& !tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CANCELADA)) {
+//
+//			int diasRestante = Utils.getIntervaloEntreDatas(
+//					Data.strToDate(tarefa.getDataCriacaoTarefa(), "dd/MM/yyyy HH:mm:ss"),
+//					Data.strToDate(tarefa.getDataMaxima(), "dd/MM/yyyy HH:mm:ss"));
+//
+//			if (diasRestante >= 0) {
+//				tarefa.setDiasParaRealizarTarefa(diasRestante);
+//			}
+//
+//		}
 
-		Date dataMx = Data.strToDate(tarefa.getDataMaxima(), "dd/MM/yyyy");
-
-		if (dataMx.before(new Date())) {
-			tarefa.setVencida(true);
-		}
-
-		if (tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CONCLUIDA)) {
-			tarefa.setCumprida(true);
-		}
-
-		if (!tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CONCLUIDA)
-				&& !tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CANCELADA)) {
-
-			int diasRestante = Utils.getIntervaloEntreDatas(
-					Data.strToDate(tarefa.getDataCriacaoTarefa(), "dd/MM/yyyy HH:mm:ss"),
-					Data.strToDate(tarefa.getDataMaxima(), "dd/MM/yyyy HH:mm:ss"));
-
-			if (diasRestante >= 0) {
-				tarefa.setDiasParaRealizarTarefa(diasRestante);
-			}
-
-		}
-
-		tarefa.setDataCriacaoPorExtenso(
-				Utils.DataPorExtenso(Data.strToDate(tarefa.getDataCriacaoTarefa(), "dd/MM/yyyy HH:mm:ss")));
-
-		tarefa.setDataMaximaPorExtenso(
-				Utils.DataPorExtenso(Data.strToDate(tarefa.getDataMaximaPorExtenso(), "dd/MM/yyyy HH:mm:ss")));
+//		tarefa.setDataCriacaoPorExtenso(
+//				Utils.DataPorExtenso(Data.strToDate(tarefa.getDataCriacaoTarefa(), "dd/MM/yyyy HH:mm:ss")));
+//
+//		tarefa.setDataMaximaPorExtenso(
+//				Utils.DataPorExtenso(Data.strToDate(tarefa.getDataMaximaPorExtenso(), "dd/MM/yyyy HH:mm:ss")));
 
 		return tarefasRepository.save(tarefa);
 	}
@@ -181,45 +177,45 @@ public class TarefaService {
 				throw new ParametroInvalidoException("A data terefa deve ser informada.");
 			}
 
-			if (Data.isValida(tarefa.getDataMaxima(), "dd/MM/yyyy")) {
-
-				tarefa.setDataMaxima(tarefa.getDataMaxima() + " 00:00:00");
-
-			} else if (Data.isValida(tarefa.getDataMaxima(), "dd/MM/yyyy HH:mm")) {
-				tarefa.setDataMaxima(tarefa.getDataMaxima() + ":00");
-			} else {
-				throw new ParametroInvalidoException(
-						"A data terefa deve ser informada com formato dd/MM/yyyy ou dd/MM/yyyy HH:mm ");
-			}
-
-			Date dataMx = Data.strToDate(tarefa.getDataMaxima(), "dd/MM/yyyy");
-
-			if (dataMx.before(new Date())) {
-				tarefa.setVencida(true);
-			}
-
-			if (tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CONCLUIDA)) {
-				tarefa.setCumprida(true);
-			}
+//			if (Data.isValida(tarefa.getDataMaxima(), "dd/MM/yyyy")) {
+//
+//				tarefa.setDataMaxima(tarefa.getDataMaxima() + " 00:00:00");
+//
+//			} else if (Data.isValida(tarefa.getDataMaxima(), "dd/MM/yyyy HH:mm")) {
+//				tarefa.setDataMaxima(tarefa.getDataMaxima() + ":00");
+//			} else {
+//				throw new ParametroInvalidoException(
+//						"A data terefa deve ser informada com formato dd/MM/yyyy ou dd/MM/yyyy HH:mm ");
+//			}
+//
+//			Date dataMx = Data.strToDate(tarefa.getDataMaxima(), "dd/MM/yyyy");
+//
+//			if (dataMx.before(new Date())) {
+//				tarefa.setVencida(true);
+//			}
+//
+//			if (tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CONCLUIDA)) {
+//				tarefa.setCumprida(true);
+//			}
 
 			if (!tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CONCLUIDA)
 					&& !tarefa.getSituacaoTarefa().equals(SituacaoTarefa.CANCELADA)) {
 
-				int diasRestante = Utils.getIntervaloEntreDatas(
-						Data.strToDate(tarefa.getDataCriacaoTarefa(), "dd/MM/yyyy HH:mm:ss"),
-						Data.strToDate(tarefa.getDataMaxima(), "dd/MM/yyyy HH:mm:ss"));
+//				int diasRestante = Utils.getIntervaloEntreDatas(
+//						Data.strToDate(tarefa.getDataCriacaoTarefa(), "dd/MM/yyyy HH:mm:ss"),
+//						Data.strToDate(tarefa.getDataMaxima(), "dd/MM/yyyy HH:mm:ss"));
 
-				if (diasRestante >= 0) {
-					tarefa.setDiasParaRealizarTarefa(diasRestante);
-				}
+//				if (diasRestante >= 0) {
+//					tarefa.setDiasParaRealizarTarefa(diasRestante);
+//				}
 
 			}
 
-			tarefa.setDataCriacaoPorExtenso(
-					Utils.DataPorExtenso(Data.strToDate(tarefa.getDataCriacaoTarefa(), "dd/MM/yyyy HH:mm:ss")));
-
-			tarefa.setDataMaximaPorExtenso(
-					Utils.DataPorExtenso(Data.strToDate(tarefa.getDataMaximaPorExtenso(), "dd/MM/yyyy HH:mm:ss")));
+//			tarefa.setDataCriacaoPorExtenso(
+//					Utils.DataPorExtenso(Data.strToDate(tarefa.getDataCriacaoTarefa(), "dd/MM/yyyy HH:mm:ss")));
+//
+//			tarefa.setDataMaximaPorExtenso(
+//					Utils.DataPorExtenso(Data.strToDate(tarefa.getDataMaximaPorExtenso(), "dd/MM/yyyy HH:mm:ss")));
 
 			tarefasRepository.save(tarefa);
 		} else {

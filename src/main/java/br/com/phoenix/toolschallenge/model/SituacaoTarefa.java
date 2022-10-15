@@ -1,4 +1,4 @@
-package br.com.rrp.model;
+package br.com.phoenix.toolschallenge.model;
 
 public enum SituacaoTarefa {
 

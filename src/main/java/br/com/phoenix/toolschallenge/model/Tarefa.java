@@ -1,10 +1,8 @@
-package br.com.rrp.model;
+package br.com.phoenix.toolschallenge.model;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import br.com.rrp.java.Data;
 
 @javax.persistence.Entity
 public class Tarefa {
@@ -22,9 +20,9 @@ public class Tarefa {
 	@Column(nullable = false)
 	private String dataMaxima;
 
-	private String dataMaximaPorExtenso = Data.getData("dd/MM/yyyy HH:mm:ss");
+	private String dataMaximaPorExtenso;
 
-	private String dataCriacaoTarefa = Data.getData("dd/MM/yyyy HH:mm:ss");
+	private String dataCriacaoTarefa;
 
 	private String dataCriacaoPorExtenso;
 

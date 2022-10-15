@@ -1,4 +1,4 @@
-package br.com.rrp.resources;
+package br.com.phoenix.toolschallenge.resources;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.rrp.model.Tarefa;
-import br.com.rrp.repository.TarefasRepository;
-import br.com.rrp.service.TarefaService;
+import br.com.phoenix.toolschallenge.model.Tarefa;
+import br.com.phoenix.toolschallenge.repository.TarefasRepository;
+import br.com.phoenix.toolschallenge.service.TarefaService;
 
 //Code By: João Marcello Cardoso - 06/11/2021
 //New Version: 27/11/2021 
@@ -39,23 +39,18 @@ public class TarefasResources {
 		return tarefaService.listar();
 	}
 
-	@GetMapping("/buscar/{id}")
-	public Optional<Tarefa> buscarId(@PathVariable("id") Long id) {
 
-		return tarefaService.buscarId(id);
-	}
+//	@GetMapping("/listar-cumpridas")
+//	public List<Tarefa> showCumpridas() {
+//
+//		return tarefaService.buscarCumpridas();
+//	}
 
-	@GetMapping("/listar-cumpridas")
-	public List<Tarefa> showCumpridas() {
-
-		return tarefaService.buscarCumpridas();
-	}
-
-	@GetMapping("/listar-nao-cumpridas")
-	public List<Tarefa> showNaoCumpridas() {
-
-		return tarefaService.buscarNaoCumpridas();
-	}
+//	@GetMapping("/listar-nao-cumpridas")
+//	public List<Tarefa> showNaoCumpridas() {
+//
+//		return tarefaService.buscarNaoCumpridas();
+//	}
 
 	@PostMapping("/salvar")
 	@ResponseStatus(HttpStatus.CREATED)

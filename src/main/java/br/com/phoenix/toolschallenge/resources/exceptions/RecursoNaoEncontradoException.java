@@ -1,4 +1,4 @@
-package br.com.rrp.resources.exceptions;
+package br.com.phoenix.toolschallenge.resources.exceptions;
 
 public class RecursoNaoEncontradoException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
