@@ -8,10 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -33,7 +31,6 @@ public class DescricaoTransacao {
 	@Positive
 	private BigDecimal valor;
 
-	@NotNull
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime dataHora;
@@ -52,16 +49,6 @@ public class DescricaoTransacao {
 		this.valor = valor;
 		this.dataHora = dataHora;
 		this.estabelecimento = estabelecimento;
-	}
-
-	public DescricaoTransacao(BigDecimal valor, LocalDateTime dataHora, String estabelecimento, String nsu,
-			String codigoAutorizacao, StatusTransacao status) {
-		this.valor = valor;
-		this.dataHora = dataHora;
-		this.estabelecimento = estabelecimento;
-		this.nsu = nsu;
-		this.codigoAutorizacao = codigoAutorizacao;
-		this.status = status;
 	}
 
 	public Long getId() {

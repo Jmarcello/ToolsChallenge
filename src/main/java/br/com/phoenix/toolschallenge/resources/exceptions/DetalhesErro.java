@@ -1,7 +1,11 @@
 package br.com.phoenix.toolschallenge.resources.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class DetalhesErro {
 
+	private String campo;
 	private Long codigo;
 	private String titulo;
 	private Long status;
@@ -18,6 +22,15 @@ public class DetalhesErro {
 		this.status = status;
 		this.timestamp = timestamp;
 		this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+	}
+	
+	public DetalhesErro(String titulo, Long codigo, Long status, Long timestamp, String mensagemDesenvolvedor, String campo) {
+		this.codigo = codigo;
+		this.titulo = titulo;
+		this.status = status;
+		this.timestamp = timestamp;
+		this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+		this.campo =  campo;
 	}
 
 	public Long getCodigo() {
@@ -58,6 +71,14 @@ public class DetalhesErro {
 
 	public void setMensagemDesenvolvedor(String mensagemDesenvolvedor) {
 		this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+	}
+
+	public String getCampo() {
+		return campo;
+	}
+
+	public void setCampo(String campo) {
+		this.campo = campo;
 	}
 
 }

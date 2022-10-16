@@ -36,8 +36,8 @@ public class Transacao {
 	@JoinColumn(name = "formaPagamento_id", nullable = false)
 	private FormaPagamento formaPagamento;
 
-	public Transacao(Long id, String cartao, DescricaoTransacao descricao, FormaPagamento formaPagamento) {
-		this.id = id;
+	public Transacao(String id, String cartao, DescricaoTransacao descricao, FormaPagamento formaPagamento) {
+		this.id = Long.parseLong(id);
 		this.cartao = cartao;
 		this.descricao = descricao;
 		this.formaPagamento = formaPagamento;

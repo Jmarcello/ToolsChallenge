@@ -51,6 +51,11 @@ public class FormaPagamento {
 	public void setTipo(TipoFormaPagamento tipo) {
 		this.tipo = tipo;
 	}
+	
+	//Construtor Criado para que seguir exemplo apresentado
+	public void setTipo(String tipo) {
+		this.tipo = TipoFormaPagamento.getNome(tipo);
+	}
 
 	public Long getParcelas() {
 		return parcelas;

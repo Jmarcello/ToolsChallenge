@@ -6,10 +6,17 @@ import br.com.phoenix.toolschallenge.model.Transacao;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class PagamentoDTO {
-	
-	//Entidade Criada com Intuito de seguir o exemplo enviado
+
+	// Entidade Criada com Intuito de seguir o exemplo enviado
 
 	private Transacao transacao;
+
+	public PagamentoDTO() {
+	}
+
+	public PagamentoDTO(Transacao transacao) {
+		this.transacao = transacao;
+	}
 
 	public Transacao getTransacao() {
 		return transacao;

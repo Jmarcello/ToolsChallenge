@@ -1,5 +1,7 @@
 package br.com.phoenix.toolschallenge.model.enums;
 
+import br.com.phoenix.toolschallenge.resources.exceptions.ParametroInvalidoException;
+
 public enum TipoFormaPagamento {
 
 	AVISTA("AVISTA", "Pagamento a vista"), PARCELADO_LOJA("PARCELADO LOJA", "Parcelamento realizado pela Loja"),
@@ -14,6 +16,16 @@ public enum TipoFormaPagamento {
 
 		this.value = value;
 		this.descricao = descricao;
+	}
+	
+	public static TipoFormaPagamento getNome(String codigo) {
+		for (TipoFormaPagamento tf : values()) {
+			if (tf.value.equals(codigo)) {
+				return tf;
+			}
+		}
+		throw new ParametroInvalidoException(
+				"Tipo Forma Pagamento informado inválido");
 	}
 
 	public String getDescricao() {
